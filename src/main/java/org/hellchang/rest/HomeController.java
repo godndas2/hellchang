@@ -5,11 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/api")
 public class HomeController {
 
-    // TODO NEXT, DB INSERT TEST
-    @GetMapping
+    @GetMapping("/")
     public String index() {
         return "10REPS!!";
     }

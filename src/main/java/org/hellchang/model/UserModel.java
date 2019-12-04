@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,8 +22,8 @@ import java.util.stream.Collectors;
 @Table(name = "USER_MODEL")
 @Builder
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class UserModel extends CommonDateEntity implements UserDetails {
 
@@ -50,7 +51,6 @@ public class UserModel extends CommonDateEntity implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // 한 명의 회원이 여러 개의 권한을 가질 수 있으므로 Collection
         return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
-//        return Arrays.asList(new SimpleGrantedAuthority("ROLE_ANONYMOUS"));
     }
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
