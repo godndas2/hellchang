@@ -17,21 +17,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
+    // TODO Unknown integral data type for ids
     @Override
     public void configure(WebSecurity web) {
         web.ignoring()
-                .antMatchers(HttpMethod.OPTIONS, "/**")
-
-                // allow anonymous resource requests
-                .antMatchers(
-                        "/",
-                        "/*.html",
-                        "/**/favicon.ico",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js",
-                        "/h2-console/**"
-                );
+                .antMatchers( "/v2/api-docs",
+                "/swagger-resources/**",
+                "/swagger-ui.html",
+                "/webjars/**",
+                "/swagger/**",
+                "/h2-console/**");
     }
 
     @Override

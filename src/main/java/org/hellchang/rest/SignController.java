@@ -1,5 +1,7 @@
 package org.hellchang.rest;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.hellchang.model.UserModel;
 import org.hellchang.model.common.CommonResult;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
 
+@Api(tags = {"1. Sign"})
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/v1")
@@ -22,7 +25,7 @@ public class SignController {
     private final PasswordEncoder passwordEncoder;
     private final ResponseService responseService;
 
-    // TODO GetMappipng
+    @ApiOperation(value = "회원가입", notes = "회원가입")
     @PostMapping(value = "/signup")
     public CommonResult getSignup(@RequestParam String password,
                                @RequestParam String name,
