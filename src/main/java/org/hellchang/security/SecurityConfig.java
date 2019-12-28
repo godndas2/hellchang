@@ -1,7 +1,6 @@
 package org.hellchang.security;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -38,11 +37,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
 
                 .authorizeRequests()
-                .antMatchers("/api/**").access("hasRole('ROLE_USER')")
+                .antMatchers("/api/**").access("hasRole('ROLE_?USER')")
+
+                .and()
+
+                .authorizeRequests()
+                .antMatchers("/v1/signup").permitAll()
 
                 .and()
 
                 .formLogin()
+                .defaultSuccessUrl("/api/")
                 .failureUrl("/login?error=true");
     }
 

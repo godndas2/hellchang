@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
@@ -14,13 +15,16 @@ import java.time.ZoneId;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-@Transactional
-public class SignController {
+public class SignControllerTest {
+
+    @LocalServerPort
+    private int port;
 
     @Autowired
     private MockMvc mockMvc;
@@ -28,11 +32,17 @@ public class SignController {
     @Test
     public void signUp() throws Exception {
         long epochTime = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond();
+
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("id", "halfdev_" + epochTime + "@gmail.com");
+
+        params.add("email", "halfdev_" + epochTime + "@gmail.com");
         params.add("password", "12345");
         params.add("name", "halfdev_" + epochTime);
-        mockMvc.perform(post("/v1/signup").params(params))
+
+        String url = "http://localhost:"+port+"/v1/signup";
+
+        mockMvc.perform(post(url)
+                .params(params))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))

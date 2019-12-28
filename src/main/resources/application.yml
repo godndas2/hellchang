@@ -2,10 +2,6 @@ server:
   port: 8989
 
 spring:
-  security:
-    user:
-      name: test
-      password: 1234
   h2:
     console:
       path: /h2-console

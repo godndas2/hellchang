@@ -62,11 +62,4 @@ public class ResponseService {
         result.setMessage(CommonResponse.SUCCESS.getMessage());
     }
 
-    // 결과 모델에 API 요청 실패 data 를 setting 해주는 method
-    // TODO 이 메소드가 필요할까?
-    public void setFailedResult(CommonResult result) {
-        result.setSuccess(false);
-        result.setCode(CommonResponse.FAILED.getCode());
-        result.setMessage(CommonResponse.FAILED.getMessage());
-    }
 }

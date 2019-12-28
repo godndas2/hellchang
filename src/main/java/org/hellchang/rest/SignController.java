@@ -18,7 +18,6 @@ import java.util.Collections;
 @Api(tags = {"1. Sign"})
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/v1")
 public class SignController {
 
     private final UserRepository userRepository;
@@ -26,7 +25,7 @@ public class SignController {
     private final ResponseService responseService;
 
     @ApiOperation(value = "회원가입", notes = "회원가입")
-    @PostMapping(value = "/signup")
+    @PostMapping(value = "v1/signup")
     public CommonResult getSignup(@RequestParam String password,
                                @RequestParam String name,
                                @RequestParam String email) {

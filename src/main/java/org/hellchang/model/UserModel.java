@@ -31,7 +31,7 @@ public class UserModel extends CommonDateEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Long id;
 
     @Column(length = 50, nullable = false)
     private String name;
