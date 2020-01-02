@@ -9,6 +9,7 @@ import org.hellchang.model.UserModel;
 import org.hellchang.model.common.CommonResult;
 import org.hellchang.model.common.SingleResult;
 import org.hellchang.repository.UserRepository;
+import org.hellchang.security.jwt.JwtTokenProvider;
 import org.hellchang.service.ResponseService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,7 @@ public class SignController {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final ResponseService responseService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @ApiOperation(value = "회원가입", notes = "회원가입")
     @PostMapping(value = "v1/signup")
@@ -46,7 +48,7 @@ public class SignController {
 
     @ApiOperation(value = "로그인", notes = "로그인")
     @GetMapping(value = "v1/signin")
-    public SingleResult<Object> signin(@ApiParam(value = "이메일", required = true)
+    public SingleResult<String> signin(@ApiParam(value = "이메일", required = true)
                                        @RequestParam String email,
                                        @ApiParam(value = "비밀번호", required = true)
                                        @RequestParam String password) {
@@ -57,6 +59,6 @@ public class SignController {
             throw new CustomEmailSigninFailedException();
         }
 
-        return responseService.getSingleResult(userModel);
+        return responseService.getSingleResult(jwtTokenProvider.createToken(userModel.getUsername(), userModel.getRoles()));
     }
 }
