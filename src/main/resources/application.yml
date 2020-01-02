@@ -22,5 +22,6 @@ spring:
 ######### LOGGING #########
 logging:
   level:
-    org.hellchang: DEBUG
+    root: info
+    org.hellchang.rest: debug
 

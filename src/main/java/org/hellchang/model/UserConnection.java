@@ -25,7 +25,7 @@ public class UserConnection {
     @Enumerated(EnumType.STRING)
     private ProviderType provider;
 
-    @Column(name = "provider_id", unique = true, nullable = false)
+    @Column(name = "provider_id", nullable = false)
     private String providerId;
 
     @Column(name = "profile_url")

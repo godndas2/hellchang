@@ -40,7 +40,7 @@ public class UserModel extends CommonDateEntity implements UserDetails {
     @Column(length = 100, nullable = false)
     private String password;
 
-    @Column(length = 30, nullable = false, unique = true)
+    @Column(length = 30, nullable = false)
     private String email;
 
     @ElementCollection(fetch = FetchType.EAGER)
